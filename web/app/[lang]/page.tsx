@@ -1,6 +1,10 @@
 import Header from "@/components/Header";
 import PromoBanner from "@/components/PromoBanner";
-import WashCanvas from "@/components/WashCanvas";
+import Image from "next/image";
+import heroImage from "@/public/images/rio-hero.jpg";
+import detailingImage from "@/public/images/rio-detailing.jpg";
+import foamImage from "@/public/images/rio-foam.jpg";
+import interiorImage from "@/public/images/rio-interior.jpg";
 import { fallbackServices, isLocale, t, type Locale } from "@/lib/i18n";
 import { supabaseBrowser } from "@/lib/supabase";
 
@@ -28,7 +32,7 @@ export default async function Landing({ params }: { params: { lang: string } }) 
     <>
       <Header lang={lang} />
       <section className="hero">
-        <WashCanvas />
+        <Image className="hero-photo" src={heroImage} alt="Premium Rio Car Wash" fill priority sizes="100vw" />
         <div className="hero-vignette" />
         <div className="hero-copy container">
           <p className="eyebrow ui"><span />{labels.eyebrow}<span /></p>
@@ -86,10 +90,15 @@ export default async function Landing({ params }: { params: { lang: string } }) 
         <section className="section container" id="gallery">
           <div className="section-heading"><div><p className="section-kicker ui">03 — THE PROCESS</p><h2>{labels.process}</h2></div></div>
           <div className="process-grid">
-            {[labels.wash, labels.detail, labels.finish].map((label, index) => (
-              <article className={`process-card process-${index + 1}`} key={label}>
-                <div className="process-art"><span className="process-ring" /><span className="process-car">RIO</span></div>
-                <div className="process-label ui"><span>0{index + 1}</span><strong>{label}</strong></div>
+            {[
+              { label: labels.wash, image: foamImage, alt: "Luxury snow foam car wash" },
+              { label: labels.detail, image: interiorImage, alt: "Premium interior steam detailing" },
+              { label: labels.finish, image: detailingImage, alt: "Hand-finished paint detailing" },
+            ].map((item, index) => (
+              <article className={`process-card process-${index + 1}`} key={item.label}>
+                <Image className="process-photo" src={item.image} alt={item.alt} fill sizes={index === 0 ? "(max-width: 700px) 100vw, 58vw" : "(max-width: 700px) 100vw, 42vw"} />
+                <div className="process-shade" />
+                <div className="process-label ui"><span>0{index + 1}</span><strong>{item.label}</strong></div>
               </article>
             ))}
           </div>
