@@ -58,7 +58,8 @@ export default function WorkerPage() {
     setBusy(true); setMsg("");
     const sb = supabaseBrowser();
     if (!sb) { setAuthed(true); setCheckingSession(false); setBusy(false); return; }
-    const email = `${workerId.trim().toLowerCase()}@rio-workers.local`;
+    const loginName = workerId.trim().toLowerCase();
+    const email = loginName.includes("@") ? loginName : `${loginName}@rio-workers.local`;
     const { data, error } = await sb.auth.signInWithPassword({ email, password });
     if (error || !data.user) { setMsg(error?.message || labels.denied); setBusy(false); return; }
     const { data: profile } = await sb.from("profiles").select("role").eq("id", data.user.id).single();
