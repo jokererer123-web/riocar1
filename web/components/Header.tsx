@@ -1,58 +1,85 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { locales, t, type Locale } from "@/lib/i18n";
 
-const WA = "https://wa.me/505696797";
+const WA = "https://wa.me/996505696797";
 
 export default function Header({ lang }: { lang: Locale }) {
   const copy = t(lang);
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [appOpen, setAppOpen] = useState(false);
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  const localizedPath = (locale: Locale) => {
+    const parts = pathname.split("/");
+    parts[1] = locale;
+    return parts.join("/") || `/${locale}`;
+  };
 
   return (
     <>
       <header className="nav">
         <div className="container nav-inner">
-          <Link href={`/${lang}`}>
-            <strong className="gold">{copy.brand}</strong>
+          <Link className="brand" href={`/${lang}`} aria-label={copy.brand}>
+            <span className="brand-mark">R</span>
+            <span><strong>RIO</strong><small>CAR WASH</small></span>
           </Link>
-          <nav className="ui" style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-            <a href="#services">{copy.nav.services}</a>
-            <a href="#gallery">{copy.nav.gallery}</a>
-            <a href="#reviews">{copy.nav.reviews}</a>
-            <a href="#contact">{copy.nav.contact}</a>
-            <Link href={`/${lang}/admin`}>{copy.nav.admin}</Link>
-            <Link href={`/${lang}/worker`}>{copy.nav.worker}</Link>
-            <span className="langs">
-              {locales.map((l) => (
-                <Link key={l} href={`/${l}`}>
-                  <button className={l === lang ? "active" : ""} type="button">
-                    {l.toUpperCase()}
-                  </button>
+
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-label="Menu"
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span /><span /><span />
+          </button>
+
+          <nav className={`nav-links ui ${open ? "open" : ""}`} aria-label="Main navigation">
+            <div className="nav-section-links">
+              <Link href={`/${lang}#services`}>{copy.nav.services}</Link>
+              <Link href={`/${lang}#gallery`}>{copy.nav.gallery}</Link>
+              <Link href={`/${lang}#reviews`}>{copy.nav.reviews}</Link>
+              <Link href={`/${lang}#contact`}>{copy.nav.contact}</Link>
+            </div>
+            <div className="langs" aria-label="Language">
+              {locales.map((locale) => (
+                <Link
+                  key={locale}
+                  href={localizedPath(locale)}
+                  className={locale === lang ? "active" : ""}
+                  aria-current={locale === lang ? "page" : undefined}
+                >
+                  {locale.toUpperCase()}
                 </Link>
               ))}
-            </span>
-            <a className="btn ghost" href={WA} target="_blank" rel="noreferrer">
+            </div>
+            <a className="btn ghost nav-whatsapp" href={WA} target="_blank" rel="noreferrer">
               {copy.wa}
             </a>
-            <button className="btn" type="button" onClick={() => setOpen(true)}>
+            <button className="btn nav-app" type="button" onClick={() => setAppOpen(true)}>
               {copy.download}
             </button>
           </nav>
         </div>
       </header>
-      {open && (
-        <div className="modal-bg" onClick={() => setOpen(false)}>
-          <div className="card modal ui" onClick={(e) => e.stopPropagation()}>
-            <h3>{copy.appModalTitle}</h3>
-            <p className="muted" style={{ margin: "12px 0 20px" }}>
-              {copy.appModalBody}
-            </p>
-            <p className="muted">Expo: <code>cd mobile && npx expo start</code></p>
-            <button className="btn" style={{ marginTop: 16 }} onClick={() => setOpen(false)}>
-              OK
-            </button>
+
+      {appOpen && (
+        <div className="modal-bg" role="presentation" onClick={() => setAppOpen(false)}>
+          <div className="card modal ui" role="dialog" aria-modal="true" aria-labelledby="app-modal-title" onClick={(event) => event.stopPropagation()}>
+            <button className="modal-close" onClick={() => setAppOpen(false)} aria-label="Close">×</button>
+            <div className="app-icon">R</div>
+            <h3 id="app-modal-title">{copy.appModalTitle}</h3>
+            <p className="muted">{copy.appModalBody}</p>
+            <div className="store-row">
+              <span>App Store</span><span>Google Play</span>
+            </div>
+            <button className="btn" onClick={() => setAppOpen(false)}>OK</button>
           </div>
         </div>
       )}
