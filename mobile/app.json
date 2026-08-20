@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Rio Car Wash",
+    "slug": "rio-carwash",
+    "scheme": "riocarwash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": { "supportsTablet": false, "bundleIdentifier": "kg.riocarwash.app" },
+    "android": { "package": "kg.riocarwash.app" },
+    "plugins": ["expo-router"]
+  }
+}
