@@ -2,7 +2,7 @@
   "name": "rio-carwash-cloudflare",
   "private": true,
   "scripts": {
-    "build": "npm --prefix web ci && STATIC_EXPORT=1 npm --prefix web run build",
+    "build": "npm --prefix web ci && STATIC_EXPORT=1 npm --prefix web run build && rm -rf out && cp -R web/out out",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
