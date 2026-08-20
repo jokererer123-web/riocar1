@@ -117,13 +117,25 @@ export default function WorkerPage() {
         scanner = new Html5Qrcode("qr-reader");
         await scanner.start({ facingMode: "environment" }, { fps: 8, qrbox: { width: 230, height: 230 } }, (decoded: string) => {
           if (!active) return;
+          // Lock after the first result so one QR cannot trigger several orders.
+          active = false;
           setCustomerRef(decoded);
-          scanner?.stop().catch(() => undefined);
-          findCustomer(decoded);
+          setMode("manual");
+          void findCustomer(decoded);
         }, () => undefined);
       } catch { if (active) setMsg(labels.camera); }
     })();
-    return () => { active = false; scanner?.stop().catch(() => undefined).finally(() => scanner?.clear()); };
+    return () => {
+      active = false;
+      const currentScanner = scanner;
+      if (!currentScanner) return;
+      // html5-qrcode throws when stop/clear race during a React unmount.
+      // Contain both operations so a successful scan can never crash the page.
+      void (async () => {
+        try { await currentScanner.stop(); } catch { /* already stopped */ }
+        try { currentScanner.clear(); } catch { /* reader node already removed */ }
+      })();
+    };
   }, [mode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const findCustomer = async (reference = customerRef) => {
