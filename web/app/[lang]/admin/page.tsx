@@ -34,7 +34,12 @@ export default function AdminPage() {
   useEffect(() => {
     const sb = supabaseBrowser();
     if (!sb) return;
-    sb.auth.getSession().then(({ data }) => setAuthed(Boolean(data.session)));
+    sb.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return;
+      const { data: profile } = await sb.from("profiles").select("role").eq("id", data.user.id).single();
+      setAuthed(profile?.role === "admin");
+      if (profile && profile.role !== "admin") setMsg("Admin access required.");
+    });
   }, []);
 
   const login = async () => {
@@ -44,12 +49,18 @@ export default function AdminPage() {
       setMsg("Demo mode (no Supabase env) — UI unlocked.");
       return;
     }
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) setMsg(error.message);
-    else {
-      setAuthed(true);
-      load();
+    const { data, error } = await sb.auth.signInWithPassword({ email: email.trim(), password });
+    if (error || !data.user) {
+      setMsg(error?.message || "Sign in failed.");
+      return;
     }
+    const { data: profile } = await sb.from("profiles").select("role").eq("id", data.user.id).single();
+    if (profile?.role !== "admin") {
+      await sb.auth.signOut();
+      setMsg("Admin access required.");
+      return;
+    }
+    setAuthed(true);
   };
 
   const load = async () => {

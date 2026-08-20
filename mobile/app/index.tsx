@@ -17,36 +17,37 @@ export default function Home() {
 
   useEffect(() => {
     if (!supabase) return;
-    supabase.auth.getUser().then(async ({ data }) => {
+    const sb = supabase;
+    sb.auth.getUser().then(async ({ data }) => {
       if (!data.user) return;
       setUid(data.user.id);
-      const { data: p } = await supabase.from("profiles").select("*").eq("id", data.user.id).single();
+      const { data: p } = await sb.from("profiles").select("*").eq("id", data.user.id).single();
       if (p) {
         setName(p.full_name);
         setPoints(p.points_balance);
       }
     });
-    supabase.from("loyalty_settings").select("reward_threshold").eq("id", 1).single().then(({ data }) => {
+    sb.from("loyalty_settings").select("reward_threshold").eq("id", 1).single().then(({ data }) => {
       if (data) setThreshold(data.reward_threshold);
     });
     const loadPromo = async () => {
-      const { data } = await supabase.from("promotions").select("*").eq("is_active", true).limit(1);
+      const { data } = await sb.from("promotions").select("*").eq("is_active", true).limit(1);
       const row = data?.[0];
       if (row) setPromo(row[`title_${lang}`] || row.title_en);
     };
     loadPromo();
-    const ch = supabase
+    const ch = sb
       .channel("p")
       .on("postgres_changes", { event: "*", schema: "public", table: "promotions" }, loadPromo)
       .on("postgres_changes", { event: "*", schema: "public", table: "profiles" }, async () => {
-        const { data } = await supabase.auth.getUser();
+        const { data } = await sb.auth.getUser();
         if (!data.user) return;
-        const { data: p } = await supabase.from("profiles").select("points_balance").eq("id", data.user.id).single();
+        const { data: p } = await sb.from("profiles").select("points_balance").eq("id", data.user.id).single();
         if (p) setPoints(p.points_balance);
       })
       .subscribe();
     return () => {
-      supabase.removeChannel(ch);
+      sb.removeChannel(ch);
     };
   }, [lang]);
 
@@ -64,7 +65,7 @@ export default function Home() {
       <Text style={s.brand}>{copy.brand}</Text>
       <Text style={s.muted}>{name}</Text>
       <View style={s.qr}>
-        <QRCode value={uid} size={200} backgroundColor="#0c0e14" color="#c9a227" />
+        <QRCode value={`rio-customer:v1:${uid}`} size={200} backgroundColor="#0c0e14" color="#c9a227" />
       </View>
       <Text style={s.pts}>
         {copy.pointsBalance}: {points} / {threshold}

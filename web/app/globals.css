@@ -130,6 +130,33 @@ input, select { width: 100%; background: #0b0d12; border: 1px solid var(--line);
 table { width: 100%; border-collapse: collapse; font-family: Inter, sans-serif; font-size: 13px; }
 th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #1c2230; }
 
+/* Staff portal */
+.worker-shell { min-height: 100vh; padding-top: 130px; }
+.portal-heading { display: flex; justify-content: space-between; align-items: center; max-width: 760px; margin-bottom: 32px; }
+.portal-heading h1 { font-family: "Cormorant Garamond", serif; font-size: clamp(42px, 6vw, 68px); font-weight: 500; }
+.portal-card { width: min(100%, 520px); padding: 30px; }
+.portal-card label { display: block; color: #a8acb4; margin-top: 5px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.portal-card > .btn { width: 100%; min-height: 48px; margin-top: 4px; }
+.form-message { min-height: 20px; color: #d88b83; margin-top: 14px; font-size: 12px; line-height: 1.5; }
+.worker-actions { display: grid; grid-template-columns: 1fr 1fr; width: min(100%, 760px); gap: 14px; }
+.worker-action { min-height: 250px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 8px; padding: 30px; color: var(--ink); background: linear-gradient(145deg, #171b22, #0c0e12); border: 1px solid var(--line); cursor: pointer; transition: .25s; }
+.worker-action:hover { transform: translateY(-3px); background: linear-gradient(145deg, #2a2515, #0c0e12); }
+.worker-action > span { margin-bottom: auto; color: var(--gold); font-size: 50px; font-weight: 300; }
+.worker-action strong { font-family: "Cormorant Garamond", serif; font-size: 30px; font-weight: 500; }
+.worker-action small { color: #686d76; font-size: 8px; letter-spacing: .18em; }
+.scanner-card { width: min(100%, 540px); }
+#qr-reader { width: 100%; overflow: hidden; border: 0 !important; }
+#qr-reader video { border-radius: 5px; }
+.customer-reference { padding: 12px; margin-bottom: 20px; background: #080a0d; color: var(--gold2); font-size: 11px; overflow-wrap: anywhere; border-left: 2px solid var(--gold); }
+.text-button { margin-top: 15px; padding: 6px; color: var(--muted); background: none; border: 0; cursor: pointer; }
+.success-card { text-align: center; }
+.success-check { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%; background: rgba(210,170,56,.14); border: 1px solid var(--gold); color: var(--gold); font-size: 30px; }
+.success-card h2 { font-family: "Cormorant Garamond", serif; font-size: 32px; margin-bottom: 8px; }
+.result-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin: 25px 0; border-block: 1px solid rgba(255,255,255,.08); }
+.result-grid p { padding: 18px 5px; font-size: 20px; border-right: 1px solid rgba(255,255,255,.08); }
+.result-grid p:last-child { border: 0; }
+.result-grid small { display: block; min-height: 25px; color: #777d87; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+
 @media (max-width: 980px) {
   .menu-toggle { display: block; }
   .nav-links { position: absolute; top: 78px; left: 0; right: 0; padding: 24px; background: rgba(8,9,12,.97); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; transform: translateY(-130%); opacity: 0; pointer-events: none; transition: .25s ease; }
@@ -166,6 +193,10 @@ th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #1c2230; 
   .contact-card iframe { min-height: 320px; }
   .footer-inner { flex-direction: column; text-align: center; }
   .grid[style*="1fr 1fr"] { grid-template-columns: 1fr !important; }
+  .worker-shell { padding-top: 100px; }
+  .worker-actions { grid-template-columns: 1fr; }
+  .worker-action { min-height: 190px; }
+  .portal-card { padding: 22px; }
   table { display: block; overflow-x: auto; }
 }
 
