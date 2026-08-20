@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
+import SupabaseSetup from "@/components/SupabaseSetup";
 import { isLocale, t, type Locale } from "@/lib/i18n";
 import { hasSupabase, supabaseBrowser } from "@/lib/supabase";
 import { useParams } from "next/navigation";
@@ -182,9 +183,8 @@ export default function WorkerPage() {
   return (
     <><Header lang={lang} /><main className="container section ui worker-shell">
       <div className="portal-heading"><div><p className="section-kicker">RIO · POS</p><h1>{copy.nav.worker}</h1></div>{authed && <button className="btn ghost" onClick={logout}>{labels.secureLogout}</button>}</div>
-      {checkingSession ? <p className="muted">{labels.checking}</p> : !authed ? (
+      {checkingSession ? <p className="muted">{labels.checking}</p> : !hasSupabase() ? <SupabaseSetup lang={lang} /> : !authed ? (
         <div className="card portal-card">
-          {!hasSupabase() && <div className="config-alert">{labels.notConfigured}</div>}
           <label>{copy.workerId} / Email</label><input autoComplete="username" value={loginName} onChange={(event) => setLoginName(event.target.value)} />
           <label>{copy.password}</label><input type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} onKeyDown={(event) => event.key === "Enter" && login()} />
           <button className="btn" disabled={busy || !hasSupabase()} onClick={login}>{busy ? labels.processing : copy.login}</button><p className="form-message" role="alert">{msg}</p>
