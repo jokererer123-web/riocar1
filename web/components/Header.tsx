@@ -76,9 +76,12 @@ export default function Header({ lang }: { lang: Locale }) {
             <div className="app-icon">R</div>
             <h3 id="app-modal-title">{copy.appModalTitle}</h3>
             <p className="muted">{copy.appModalBody}</p>
-            <div className="store-row">
-              <span>App Store</span><span>Google Play</span>
+            <div className="apk-badge">
+              <span className="android-mark">◆</span>
+              <div><small>DIRECT DOWNLOAD</small><strong>Android APK</strong></div>
+              <b>FREE</b>
             </div>
+            <p className="apk-note">{lang === "ru" ? "APK-файл готовится к бесплатной загрузке." : lang === "en" ? "The APK is being prepared for free download." : "APK акысыз жүктөө үчүн даярдалууда."}</p>
             <button className="btn" onClick={() => setAppOpen(false)}>OK</button>
           </div>
         </div>

@@ -23,10 +23,10 @@ export default async function Landing({ params }: { params: { lang: string } }) 
   }
 
   const labels = lang === "ky"
-    ? { eyebrow: "Караколдогу премиум авто кам көрүү", book: "Жазылуу", explore: "Кызматтарды көрүү", daily: "күн сайын", years: "жылдык тажрыйба", clients: "ыраазы кардар", process: "Мыкты натыйжа. Ар бир жолу.", processText: "Кузовдон салонго чейин — унааңыздын ар бир деталын премиум каражаттар менен тазалайбыз.", wash: "Жуу", detail: "Деталинг", finish: "Коргоо", from: "баштап" }
+    ? { eyebrow: "Караколдогу премиум авто кам көрүү", book: "Жазылуу", explore: "Кызматтарды көрүү", daily: "күн сайын", years: "жылдык тажрыйба", clients: "ыраазы кардар", promise: "Жөн гана таза эмес. Кемчиликсиз.", promiseSub: "Унааңызга татыктуу кам көрүү", process: "Мыкты натыйжа. Ар бир жолу.", processText: "Кузовдон салонго чейин — унааңыздын ар бир деталын премиум каражаттар менен тазалайбыз.", wash: "Жуу", detail: "Деталинг", finish: "Коргоо", from: "баштап" }
     : lang === "ru"
-      ? { eyebrow: "Премиальный уход за авто в Караколе", book: "Записаться", explore: "Смотреть услуги", daily: "ежедневно", years: "лет опыта", clients: "довольных клиентов", process: "Безупречный результат. Каждый раз.", processText: "От кузова до салона — бережно очищаем каждую деталь вашего автомобиля профессиональными средствами.", wash: "Мойка", detail: "Детейлинг", finish: "Защита", from: "от" }
-      : { eyebrow: "Premium car care in Karakol", book: "Book a wash", explore: "Explore services", daily: "open daily", years: "years of experience", clients: "happy customers", process: "A flawless finish. Every time.", processText: "From bodywork to cabin, every detail is carefully restored with professional-grade products.", wash: "Wash", detail: "Detail", finish: "Protect", from: "from" };
+      ? { eyebrow: "Премиальный уход за авто в Караколе", book: "Записаться", explore: "Смотреть услуги", daily: "ежедневно", years: "лет опыта", clients: "довольных клиентов", promise: "Не просто чисто. Безупречно.", promiseSub: "Уход, которого достоин ваш автомобиль", process: "Безупречный результат. Каждый раз.", processText: "От кузова до салона — бережно очищаем каждую деталь вашего автомобиля профессиональными средствами.", wash: "Мойка", detail: "Детейлинг", finish: "Защита", from: "от" }
+      : { eyebrow: "Premium car care in Karakol", book: "Book a wash", explore: "Explore services", daily: "open daily", years: "years of experience", clients: "happy customers", promise: "Not just clean. Flawless.", promiseSub: "The care your car deserves", process: "A flawless finish. Every time.", processText: "From bodywork to cabin, every detail is carefully restored with professional-grade products.", wash: "Wash", detail: "Detail", finish: "Protect", from: "from" };
 
   return (
     <>
@@ -35,6 +35,7 @@ export default async function Landing({ params }: { params: { lang: string } }) 
         <Image className="hero-photo" src={heroImage} alt="Premium Rio Car Wash" fill priority sizes="100vw" />
         <div className="hero-vignette" />
         <div className="hero-copy container">
+          <div className="hero-status ui"><i /> {lang === "ru" ? "СЕЙЧАС ОТКРЫТО" : lang === "en" ? "OPEN NOW" : "АЗЫР АЧЫК"}</div>
           <p className="eyebrow ui"><span />{labels.eyebrow}<span /></p>
           <h1>{copy.heroTitle}</h1>
           <p className="hero-sub muted">{copy.heroSub}</p>
@@ -56,6 +57,17 @@ export default async function Landing({ params }: { params: { lang: string } }) 
             <div><strong>5,000+</strong><span>{labels.clients}</span></div>
             <div><strong>4.9</strong><span className="stars">★★★★★</span></div>
           </div>
+        </section>
+
+        <section className="showcase">
+          <Image className="showcase-photo" src={detailingImage} alt="Rio premium hand detailing" fill sizes="100vw" />
+          <div className="showcase-overlay" />
+          <div className="container showcase-copy">
+            <p className="section-kicker ui">THE RIO STANDARD</p>
+            <h2>{labels.promise}</h2>
+            <p className="ui">{labels.promiseSub}</p>
+          </div>
+          <div className="showcase-word ui">PRECISION</div>
         </section>
 
         <section className="section container about-grid" id="about">
@@ -139,6 +151,7 @@ export default async function Landing({ params }: { params: { lang: string } }) 
         </section>
       </main>
 
+      <a className="floating-wa ui" href="https://wa.me/996505696797" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span>◉</span><b>{copy.wa}</b></a>
       <footer><div className="container footer-inner ui"><span className="brand-footer">RIO</span><span>© {new Date().getFullYear()} Rio Car Wash · Karakol</span><span><a href={`/${lang}/worker`}>{copy.nav.worker}</a> · <a href={`/${lang}/admin`}>{copy.nav.admin}</a></span></div></footer>
     </>
   );

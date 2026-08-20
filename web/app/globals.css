@@ -51,6 +51,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-vignette { position: absolute; inset: 0; background: radial-gradient(circle at center 52%, rgba(7,8,10,.08) 8%, rgba(7,8,10,.38) 58%, rgba(7,8,10,.9) 100%), linear-gradient(180deg, rgba(7,8,10,.42), rgba(7,8,10,.06) 46%, #07080a 100%); pointer-events: none; }
 @keyframes heroReveal { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1.02); } }
 .hero-copy { position: relative; z-index: 2; text-align: center; padding-top: 48px; }
+.hero-status { width: max-content; margin: 0 auto 20px; padding: 7px 12px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #d6d8dc; background: rgba(5,6,8,.4); backdrop-filter: blur(8px); font-size: 8px; letter-spacing: .2em; }
+.hero-status i { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #6bd88b; box-shadow: 0 0 12px #6bd88b; }
 .eyebrow { display: flex; align-items: center; justify-content: center; gap: 15px; color: var(--gold2); letter-spacing: .25em; text-transform: uppercase; font-size: 10px; font-weight: 500; }
 .eyebrow span { width: 32px; height: 1px; background: var(--gold); }
 .hero h1 { max-width: 1000px; margin: 24px auto 10px; font-size: clamp(52px, 8.8vw, 118px); line-height: .88; font-weight: 500; letter-spacing: -.035em; text-wrap: balance; text-shadow: 0 10px 35px rgba(0,0,0,.75); }
@@ -68,6 +70,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .trust-grid strong { font-family: "Cormorant Garamond", serif; font-size: 30px; font-weight: 500; }
 .trust-grid span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .14em; }
 .trust-grid .stars { color: var(--gold); letter-spacing: .18em; }
+.showcase { position: relative; min-height: min(76vh, 760px); display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.07); }
+.showcase-photo { object-fit: cover; object-position: center; }
+.showcase-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,6,8,.96) 0%, rgba(5,6,8,.62) 48%, rgba(5,6,8,.08) 100%), linear-gradient(0deg, #07080a 0%, transparent 28%); }
+.showcase-copy { position: relative; z-index: 2; }
+.showcase-copy h2 { max-width: 670px; font-size: clamp(55px, 8vw, 104px); font-weight: 500; line-height: .88; letter-spacing: -.04em; text-wrap: balance; }
+.showcase-copy > p:last-child { margin-top: 25px; color: #b5b8bf; font-size: 11px; text-transform: uppercase; letter-spacing: .22em; }
+.showcase-word { position: absolute; z-index: 1; right: -18px; bottom: -22px; color: rgba(255,255,255,.045); font-size: clamp(80px, 16vw, 220px); font-weight: 800; letter-spacing: -.08em; }
 .section { padding: 110px 0; }
 .section h2 { font-size: clamp(44px, 6vw, 72px); font-weight: 500; line-height: .98; letter-spacing: -.025em; }
 .section-kicker { color: var(--gold); font-size: 10px; letter-spacing: .2em; margin-bottom: 18px; }
@@ -123,8 +132,16 @@ footer { border-top: 1px solid rgba(255,255,255,.08); padding: 35px 0; color: va
 .modal p { line-height: 1.6; margin-bottom: 20px; }
 .modal-close { position: absolute; right: 14px; top: 10px; border: 0; background: none; color: var(--muted); font-size: 25px; cursor: pointer; }
 .app-icon { margin: auto; width: 58px; height: 58px; display: grid; place-items: center; background: var(--gold); color: #161105; font-family: Georgia, serif; font-size: 40px; font-style: italic; border-radius: 13px; }
-.store-row { display: flex; justify-content: center; gap: 8px; margin: 20px 0; }
-.store-row span { border: 1px solid var(--line); padding: 8px 12px; border-radius: 4px; font-size: 10px; }
+.apk-badge { display: flex; align-items: center; gap: 12px; margin: 20px 0 8px; padding: 13px; border: 1px solid var(--line); background: #090b0e; text-align: left; }
+.android-mark { display: grid; place-items: center; width: 36px; height: 36px; color: #111; background: var(--gold); border-radius: 8px; }
+.apk-badge div { display: flex; flex-direction: column; gap: 3px; }
+.apk-badge small { color: #707680; font-size: 7px; letter-spacing: .15em; }
+.apk-badge strong { font-size: 13px; }
+.apk-badge b { margin-left: auto; padding: 4px 7px; color: #79db96; border: 1px solid rgba(121,219,150,.3); font-size: 8px; letter-spacing: .1em; }
+.modal .apk-note { margin: 0 0 20px; font-size: 10px; }
+.floating-wa { position: fixed; z-index: 35; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 9px; padding: 10px 15px 10px 10px; color: #071209; background: #55d879; border-radius: 999px; box-shadow: 0 10px 35px rgba(30,190,80,.28); font-size: 11px; transition: transform .2s; }
+.floating-wa:hover { transform: translateY(-3px); }
+.floating-wa span { display: grid; place-items: center; width: 27px; height: 27px; color: white; background: rgba(0,0,0,.18); border-radius: 50%; }
 input, select { width: 100%; background: #0b0d12; border: 1px solid var(--line); color: var(--ink); padding: 11px 13px; border-radius: 5px; margin: 8px 0 14px; }
 table { width: 100%; border-collapse: collapse; font-family: Inter, sans-serif; font-size: 13px; }
 th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #1c2230; }
@@ -175,12 +192,19 @@ th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #1c2230; 
   .nav-inner { height: 68px; }
   .nav-links { top: 68px; }
   .hero h1 { font-size: clamp(49px, 15vw, 72px); line-height: .93; }
+  .hero-photo { object-position: 62% center; }
   .hero-sub { font-size: 16px; }
   .hero-actions { align-items: stretch; flex-direction: column; margin: 32px auto 0; width: min(100%, 300px); }
   .scroll-cue { display: none; }
   .trust-grid { grid-template-columns: repeat(2, 1fr); }
   .trust-grid > div { min-height: 96px; border-bottom: 1px solid rgba(255,255,255,.07); }
   .section { padding: 78px 0; }
+  .showcase { min-height: 580px; }
+  .showcase-photo { object-position: 62% center; }
+  .showcase-overlay { background: linear-gradient(90deg, rgba(5,6,8,.93), rgba(5,6,8,.25)), linear-gradient(0deg, #07080a, transparent 45%); }
+  .showcase-copy { align-self: flex-end; padding-bottom: 70px; }
+  .floating-wa b { display: none; }
+  .floating-wa { padding: 9px; right: 15px; bottom: 15px; }
   .about-grid { grid-template-columns: 1fr; gap: 35px; }
   .section-heading { display: block; }
   .section-heading > p { margin-top: 20px; }

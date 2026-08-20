@@ -6,8 +6,20 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "ios": { "supportsTablet": false, "bundleIdentifier": "kg.riocarwash.app" },
-    "android": { "package": "kg.riocarwash.app" },
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#07080c",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "kg.riocarwash.app"
+    },
+    "android": {
+      "package": "kg.riocarwash.app",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#07080c"
+      }
+    },
     "plugins": ["expo-router"]
   }
 }
