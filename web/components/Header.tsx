@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { locales, t, type Locale } from "@/lib/i18n";
+import InstallApp from "@/components/InstallApp";
 
 const WA = "https://wa.me/996505696797";
 
@@ -11,7 +12,6 @@ export default function Header({ lang }: { lang: Locale }) {
   const copy = t(lang);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [appOpen, setAppOpen] = useState(false);
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -62,30 +62,10 @@ export default function Header({ lang }: { lang: Locale }) {
             <a className="btn ghost nav-whatsapp" href={WA} target="_blank" rel="noreferrer">
               {copy.wa}
             </a>
-            <button className="btn nav-app" type="button" onClick={() => setAppOpen(true)}>
-              {copy.download}
-            </button>
+            <InstallApp label={copy.download} lang={lang} />
           </nav>
         </div>
       </header>
-
-      {appOpen && (
-        <div className="modal-bg" role="presentation" onClick={() => setAppOpen(false)}>
-          <div className="card modal ui" role="dialog" aria-modal="true" aria-labelledby="app-modal-title" onClick={(event) => event.stopPropagation()}>
-            <button className="modal-close" onClick={() => setAppOpen(false)} aria-label="Close">×</button>
-            <div className="app-icon">R</div>
-            <h3 id="app-modal-title">{copy.appModalTitle}</h3>
-            <p className="muted">{copy.appModalBody}</p>
-            <div className="apk-badge">
-              <span className="android-mark">◆</span>
-              <div><small>DIRECT DOWNLOAD</small><strong>Android APK</strong></div>
-              <b>FREE</b>
-            </div>
-            <p className="apk-note">{lang === "ru" ? "APK-файл готовится к бесплатной загрузке." : lang === "en" ? "The APK is being prepared for free download." : "APK акысыз жүктөө үчүн даярдалууда."}</p>
-            <button className="btn" onClick={() => setAppOpen(false)}>OK</button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

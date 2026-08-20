@@ -139,6 +139,14 @@ footer { border-top: 1px solid rgba(255,255,255,.08); padding: 35px 0; color: va
 .apk-badge strong { font-size: 13px; }
 .apk-badge b { margin-left: auto; padding: 4px 7px; color: #79db96; border: 1px solid rgba(121,219,150,.3); font-size: 8px; letter-spacing: .1em; }
 .modal .apk-note { margin: 0 0 20px; font-size: 10px; }
+.install-symbol { font-size: 16px; line-height: 0; }
+.install-modal { overflow: hidden; background: radial-gradient(circle at 50% 0, rgba(210,170,56,.17), transparent 38%), linear-gradient(180deg, #151820, #090b0f); }
+.install-kicker { margin: 16px 0 0 !important; color: var(--gold); font-size: 8px; letter-spacing: .25em; }
+.install-perks { display: grid; grid-template-columns: repeat(3, 1fr); margin: 22px 0; border-block: 1px solid rgba(255,255,255,.08); }
+.install-perks span { padding: 13px 4px; color: #aeb3bd; font-size: 8px; letter-spacing: .08em; border-right: 1px solid rgba(255,255,255,.08); }
+.install-perks span:last-child { border: 0; }
+.install-primary { width: 100%; min-height: 49px; }
+.install-help { padding: 14px; margin: 0 !important; color: var(--gold2); background: rgba(210,170,56,.08); border: 1px solid var(--line); font-size: 11px; }
 .floating-wa { position: fixed; z-index: 35; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 9px; padding: 10px 15px 10px 10px; color: #071209; background: #55d879; border-radius: 999px; box-shadow: 0 10px 35px rgba(30,190,80,.28); font-size: 11px; transition: transform .2s; }
 .floating-wa:hover { transform: translateY(-3px); }
 .floating-wa span { display: grid; place-items: center; width: 27px; height: 27px; color: white; background: rgba(0,0,0,.18); border-radius: 50%; }
