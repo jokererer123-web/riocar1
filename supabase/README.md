@@ -46,4 +46,18 @@ set phone = excluded.phone, full_name = excluded.full_name,
     role = 'worker', worker_id = excluded.worker_id;
 ```
 
-The `002_secure_loyalty.sql` migration removes direct transaction inserts. Workers call the atomic `process_loyalty_transaction` RPC, which validates the staff role and customer, reads the trusted service price and points, and updates the loyalty balance in one database transaction.
+The `002_secure_loyalty.sql` migration removes direct transaction inserts. Workers call an atomic database function that validates the staff role and customer, reads trusted service data, and updates loyalty in one transaction.
+
+## Multi-service checkout (migration 003)
+
+Run `003_orders_and_cancellations.sql` after migrations 001 and 002. It adds:
+
+- `orders` and `order_items` for multi-service baskets and custom cashier prices
+- `points_ledger` for an auditable history of every balance change
+- idempotent `create_order` checkout to prevent duplicate charges
+- staff-only customer lookup before checkout
+- admin-only cancellation with automatic point reversal
+- admin point adjustments that require an audit note
+- configurable free reward service in `loyalty_settings.reward_service_id`
+
+Existing rows in `transactions` are imported into the new order tables without changing customer balances. New sales should use `create_order`; the old single-service RPC remains only for backward compatibility until all clients are upgraded.
