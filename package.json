@@ -1,0 +1,11 @@
+{
+  "name": "rio-carwash-cloudflare",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix web ci && STATIC_EXPORT=1 npm --prefix web run build",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.33.1"
+  }
+}

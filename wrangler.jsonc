@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "riocar",
+  "compatibility_date": "2026-08-20",
+  "assets": {
+    "directory": "./web/out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
